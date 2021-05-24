@@ -593,7 +593,7 @@ export function callBetFee(chainId: number, web3: any) {
   return new Promise(async (resolve, reject) => {
     const bo = getBOContract(chainId, web3);
     await bo.methods
-      .devFundBetFee()
+      .protocolFee()
       .call(
         { from: zeroAddress },
         (err: any, data: any) => {
