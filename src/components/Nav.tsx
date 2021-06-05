@@ -97,7 +97,7 @@ const Nav = (props: INavProps) => {
           <span style={{ color: `white` }}>
             {
               // @ts-ignore
-              i18n[locale].MENU
+              i18n[props.locale].MENU
             }
           </span>
         </Button>

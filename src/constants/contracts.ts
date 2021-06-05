@@ -368,17 +368,17 @@ export const BO_CONTRACT = {
           },
           {
             "internalType": "address",
-            "name": "pp_",
-            "type": "address"
-          },
-          {
-            "internalType": "address",
             "name": "biop_",
             "type": "address"
           },
           {
             "internalType": "address",
-            "name": "rateCalc_",
+            "name": "uR_",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "app_",
             "type": "address"
           }
         ],
@@ -442,6 +442,18 @@ export const BO_CONTRACT = {
             "internalType": "bool",
             "name": "dir",
             "type": "bool"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint80",
+            "name": "pR",
+            "type": "uint80"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint80",
+            "name": "exp",
+            "type": "uint80"
           }
         ],
         "name": "Create",
@@ -543,19 +555,13 @@ export const BO_CONTRACT = {
         "constant": true
       },
       {
-        "inputs": [
+        "inputs": [],
+        "name": "app",
+        "outputs": [
           {
             "internalType": "address",
             "name": "",
             "type": "address"
-          }
-        ],
-        "name": "altLockedAmount",
-        "outputs": [
-          {
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
           }
         ],
         "stateMutability": "view",
@@ -671,144 +677,6 @@ export const BO_CONTRACT = {
         ],
         "stateMutability": "nonpayable",
         "type": "function"
-      },
-      {
-        "inputs": [],
-        "name": "defaultPair",
-        "outputs": [
-          {
-            "internalType": "address",
-            "name": "",
-            "type": "address"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function",
-        "constant": true
-      },
-      {
-        "inputs": [],
-        "name": "defaultRCAddress",
-        "outputs": [
-          {
-            "internalType": "address",
-            "name": "",
-            "type": "address"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function",
-        "constant": true
-      },
-      {
-        "inputs": [],
-        "name": "devFund",
-        "outputs": [
-          {
-            "internalType": "address payable",
-            "name": "",
-            "type": "address"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function",
-        "constant": true
-      },
-      {
-        "inputs": [],
-        "name": "devFundBetFee",
-        "outputs": [
-          {
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function",
-        "constant": true
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "",
-            "type": "address"
-          }
-        ],
-        "name": "ePairs",
-        "outputs": [
-          {
-            "internalType": "address",
-            "name": "",
-            "type": "address"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function",
-        "constant": true
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "",
-            "type": "address"
-          }
-        ],
-        "name": "ePools",
-        "outputs": [
-          {
-            "internalType": "bool",
-            "name": "",
-            "type": "bool"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function",
-        "constant": true
-      },
-      {
-        "inputs": [],
-        "name": "exerciserFee",
-        "outputs": [
-          {
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function",
-        "constant": true
-      },
-      {
-        "inputs": [],
-        "name": "expirerFee",
-        "outputs": [
-          {
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function",
-        "constant": true
-      },
-      {
-        "inputs": [],
-        "name": "fGS",
-        "outputs": [
-          {
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function",
-        "constant": true
       },
       {
         "inputs": [
@@ -972,6 +840,34 @@ export const BO_CONTRACT = {
       },
       {
         "inputs": [],
+        "name": "oC",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "constant": true
+      },
+      {
+        "inputs": [],
+        "name": "oP",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "constant": true
+      },
+      {
+        "inputs": [],
         "name": "open",
         "outputs": [
           {
@@ -1005,6 +901,11 @@ export const BO_CONTRACT = {
             "type": "int256"
           },
           {
+            "internalType": "uint80",
+            "name": "pR",
+            "type": "uint80"
+          },
+          {
             "internalType": "uint256",
             "name": "pV",
             "type": "uint256"
@@ -1015,9 +916,9 @@ export const BO_CONTRACT = {
             "type": "uint256"
           },
           {
-            "internalType": "uint256",
+            "internalType": "uint80",
             "name": "exp",
-            "type": "uint256"
+            "type": "uint80"
           },
           {
             "internalType": "bool",
@@ -1069,6 +970,20 @@ export const BO_CONTRACT = {
       },
       {
         "inputs": [],
+        "name": "protocolFee",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "constant": true
+      },
+      {
+        "inputs": [],
         "name": "rewEn",
         "outputs": [
           {
@@ -1083,7 +998,21 @@ export const BO_CONTRACT = {
       },
       {
         "inputs": [],
-        "name": "reward",
+        "name": "rwd",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "constant": true
+      },
+      {
+        "inputs": [],
+        "name": "settlerFee",
         "outputs": [
           {
             "internalType": "uint256",
@@ -1192,12 +1121,12 @@ export const BO_CONTRACT = {
       },
       {
         "inputs": [],
-        "name": "getMaxAvailable",
+        "name": "treasury",
         "outputs": [
           {
-            "internalType": "uint256",
+            "internalType": "address payable",
             "name": "",
-            "type": "uint256"
+            "type": "address"
           }
         ],
         "stateMutability": "view",
@@ -1205,14 +1134,22 @@ export const BO_CONTRACT = {
         "constant": true
       },
       {
-        "inputs": [
+        "inputs": [],
+        "name": "uR",
+        "outputs": [
           {
             "internalType": "address",
-            "name": "erc20PoolAddress_",
+            "name": "",
             "type": "address"
           }
         ],
-        "name": "getAltMaxAvailable",
+        "stateMutability": "view",
+        "type": "function",
+        "constant": true
+      },
+      {
+        "inputs": [],
+        "name": "getMaxAvailable",
         "outputs": [
           {
             "internalType": "uint256",
@@ -1241,52 +1178,17 @@ export const BO_CONTRACT = {
       {
         "inputs": [
           {
-            "internalType": "address",
-            "name": "account",
-            "type": "address"
-          }
-        ],
-        "name": "getStakingTimeBonus",
-        "outputs": [
-          {
             "internalType": "uint256",
-            "name": "",
+            "name": "amount",
             "type": "uint256"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function",
-        "constant": true
-      },
-      {
-        "inputs": [
+          },
           {
-            "internalType": "address",
-            "name": "account",
-            "type": "address"
+            "internalType": "bool",
+            "name": "completion",
+            "type": "bool"
           }
         ],
-        "name": "getPoolBalanceBonus",
-        "outputs": [
-          {
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function",
-        "constant": true
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "account",
-            "type": "address"
-          }
-        ],
-        "name": "getOptionValueBonus",
+        "name": "getTradeExerciseBonus",
         "outputs": [
           {
             "internalType": "uint256",
@@ -1307,31 +1209,11 @@ export const BO_CONTRACT = {
           },
           {
             "internalType": "uint256",
-            "name": "base",
+            "name": "stack",
             "type": "uint256"
           }
         ],
-        "name": "getBetSizeBonus",
-        "outputs": [
-          {
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function",
-        "constant": true
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "account",
-            "type": "address"
-          }
-        ],
-        "name": "getCombinedStakingBonus",
+        "name": "getCompleteBonus",
         "outputs": [
           {
             "internalType": "uint256",
@@ -1372,7 +1254,7 @@ export const BO_CONTRACT = {
       },
       {
         "inputs": [],
-        "name": "defaultPriceProvider",
+        "name": "thisAddress",
         "outputs": [
           {
             "internalType": "address",
@@ -1388,11 +1270,24 @@ export const BO_CONTRACT = {
         "inputs": [
           {
             "internalType": "address",
-            "name": "newPool_",
+            "name": "newUR",
             "type": "address"
           }
         ],
-        "name": "addAltPool",
+        "name": "updateUtilizationRewards",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "newAPP",
+            "type": "address"
+          }
+        ],
+        "name": "updateAPP",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -1406,50 +1301,6 @@ export const BO_CONTRACT = {
           }
         ],
         "name": "enableRewards",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "oldPool_",
-            "type": "address"
-          }
-        ],
-        "name": "removeAltPool",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "newPP_",
-            "type": "address"
-          },
-          {
-            "internalType": "address",
-            "name": "rateCalc_",
-            "type": "address"
-          }
-        ],
-        "name": "addPP",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "oldPP_",
-            "type": "address"
-          }
-        ],
-        "name": "removePP",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -1481,28 +1332,14 @@ export const BO_CONTRACT = {
         "type": "function"
       },
       {
-        "inputs": [],
-        "name": "thisAddress",
-        "outputs": [
-          {
-            "internalType": "address",
-            "name": "",
-            "type": "address"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function",
-        "constant": true
-      },
-      {
         "inputs": [
           {
             "internalType": "uint256",
-            "name": "exerciserFee_",
+            "name": "fee_",
             "type": "uint256"
           }
         ],
-        "name": "updateExerciserFee",
+        "name": "updateSettlerFee",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -1511,24 +1348,11 @@ export const BO_CONTRACT = {
         "inputs": [
           {
             "internalType": "uint256",
-            "name": "expirerFee_",
+            "name": "newProtocolFee_",
             "type": "uint256"
           }
         ],
-        "name": "updateExpirerFee",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "uint256",
-            "name": "devFundBetFee_",
-            "type": "uint256"
-          }
-        ],
-        "name": "updateDevFundBetFee",
+        "name": "updateProtocolFee",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -1563,7 +1387,7 @@ export const BO_CONTRACT = {
         "inputs": [
           {
             "internalType": "address payable",
-            "name": "newDevFund",
+            "name": "newTreasury_",
             "type": "address"
           }
         ],
@@ -1609,18 +1433,8 @@ export const BO_CONTRACT = {
           },
           {
             "internalType": "uint256",
-            "name": "max",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
             "name": "deposit",
             "type": "uint256"
-          },
-          {
-            "internalType": "int256",
-            "name": "currentPrice",
-            "type": "int256"
           },
           {
             "internalType": "uint256",
@@ -1658,46 +1472,12 @@ export const BO_CONTRACT = {
             "type": "address"
           },
           {
-            "internalType": "uint256",
+            "internalType": "uint80",
             "name": "t_",
-            "type": "uint256"
+            "type": "uint80"
           }
         ],
-        "name": "bet",
-        "outputs": [],
-        "stateMutability": "payable",
-        "type": "function",
-        "payable": true
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "bool",
-            "name": "k_",
-            "type": "bool"
-          },
-          {
-            "internalType": "address",
-            "name": "pp_",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "t_",
-            "type": "uint256"
-          },
-          {
-            "internalType": "address",
-            "name": "pa_",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "a_",
-            "type": "uint256"
-          }
-        ],
-        "name": "bet20",
+        "name": "openPosition",
         "outputs": [],
         "stateMutability": "payable",
         "type": "function",
@@ -1711,20 +1491,7 @@ export const BO_CONTRACT = {
             "type": "uint256"
           }
         ],
-        "name": "exercise",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "uint256",
-            "name": "oID",
-            "type": "uint256"
-          }
-        ],
-        "name": "expire",
+        "name": "complete",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -1732,7 +1499,7 @@ export const BO_CONTRACT = {
     ]
   },
   42: {
-    address: '0x79aDD078Ea5073d3B0d892b20b359d8d9c45E10D',
+    address: '0x0b26abae157dDa6750D10afd5e577b4b789E4C1b',
     "abi": [
       {
         "inputs": [
@@ -6928,7 +6695,7 @@ export const BIOP_CONTRACT = {
     ]
   },
   42: {
-    address: '0x1701B86d849a90f8164e4aCBB81A5CBeF288BB00',
+    address: '0xd15A6347F8E93aD3677addd436d3A9a09aA5a9ca',
     "abi": [
       {
         "inputs": [
@@ -7984,12 +7751,7 @@ export const RATECALC_CONTRACT = {
           },
           {
             "internalType": "uint256",
-            "name": "maxAvailable",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "newPrice",
+            "name": "l",
             "type": "uint256"
           },
           {
@@ -8001,6 +7763,21 @@ export const RATECALC_CONTRACT = {
             "internalType": "bool",
             "name": "k",
             "type": "bool"
+          },
+          {
+            "internalType": "uint256",
+            "name": "oC",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "oP",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tP",
+            "type": "uint256"
           }
         ],
         "name": "rate",
@@ -8012,13 +7789,12 @@ export const RATECALC_CONTRACT = {
           }
         ],
         "stateMutability": "view",
-        "type": "function",
-        "constant": true
+        "type": "function"
       }
     ]
   },
   42: {
-    address: '0x3dA823d90503e84D7FBE18f2309f7b0193650dCe',
+    address: '0xaDdBd19836736ed74369F83415bC031d1988977f',
     "abi": [
       {
         "inputs": [
@@ -8044,7 +7820,12 @@ export const RATECALC_CONTRACT = {
           },
           {
             "internalType": "uint256",
-            "name": "s",
+            "name": "oC",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "oP",
             "type": "uint256"
           },
           {
@@ -8062,8 +7843,7 @@ export const RATECALC_CONTRACT = {
           }
         ],
         "stateMutability": "view",
-        "type": "function",
-        "constant": true
+        "type": "function"
       }
     ]
   },
@@ -8094,7 +7874,12 @@ export const RATECALC_CONTRACT = {
           },
           {
             "internalType": "uint256",
-            "name": "s",
+            "name": "oC",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "oP",
             "type": "uint256"
           },
           {
@@ -8112,8 +7897,7 @@ export const RATECALC_CONTRACT = {
           }
         ],
         "stateMutability": "view",
-        "type": "function",
-        "constant": true
+        "type": "function"
       }
     ]
   }
@@ -8122,7 +7906,7 @@ export const RATECALC_CONTRACT = {
 export const APP_CONTRACT = {
   1: {},
   42: {
-    address: "0x5058bDD4B4F6b97E18F2109f55F6C60422B4CCB0",
+    address: "0x4C3fD64ECA884A2aa6B7FC4f42b6F5896041c7EE",
     "abi": [
       {
         "inputs": [

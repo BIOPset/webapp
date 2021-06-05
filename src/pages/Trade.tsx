@@ -375,6 +375,7 @@ const Trade = () => {
     if (greaterThan(betAmount, convertAmountFromRawNumber(maxBet, 18))) {
       setAmountToWin("invalid");
     } else {
+      console.log(`getting amount for ${betAmount} ${ web3.utils.toWei(`${betAmount}`, "ether")}`);
       const amountToWin = await getDirectRate(currentPrice, pair.address, betDirection, rounds, openOptions, web3.utils.toWei(`${betAmount}`, "ether"), networkId, web3);
       console.log(`new amountToWin ${amountToWin}.`);
       // this.setState({ amountToWin: formatFixedDecimals(`${web3.utils.fromWei(`${amountToWin}`, "ether")}`, 5) });

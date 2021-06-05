@@ -89,12 +89,14 @@ export function getDirectRate(currentPrice: number, pair: string, dir: boolean, 
   return new Promise(async (resolve, reject) => {
 
     try {
-      const bo = getBOContract(chainId, web3)
       const rc = getRateCalcContract(chainId, web3)
-      const stack = await optionStack(bo, dir);
-      const max = await callPoolMaxAvailable(chainId, web3);
+      const oC = await getOC(chainId, web3);
+      const oP = await getOP(chainId, web3);
+      const locked = await getPoolLockedAmount(chainId, web3);
+      const total = await getETHBalance(BO_CONTRACT[chainId].address, web3)
+       console.log(`direct rate inputs are ${amount}, ${locked}, ${time}, ${dir}, ${oC}, ${oP}, ${total}`);
       await rc.methods.
-        rate(amount, max, currentPrice, time, dir, stack)
+        rate(amount, locked, time, dir, oC, oP, total)
         .call(
           { from: zeroAddress },
           (err: any, data: any) => {
@@ -104,25 +106,6 @@ export function getDirectRate(currentPrice: number, pair: string, dir: boolean, 
             resolve(data);
           }
         )
-    } catch (e) {
-      console.log(`caught error ${e}`);
-      reject(e);
-    }
-
-  })
-}
-
-function optionStack(bo: any, direction: boolean) {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const oc = bo.methods.oC();
-      const op = bo.methods.oP();
-      if (direction) {
-        // call
-        resolve(oc - op >= 1 ? oc - op : 1);
-      } else {
-        resolve(op - oc >= 1 ? op - oc : 1);
-      }
     } catch (e) {
       console.log(`caught error ${e}`);
       reject(e);
@@ -157,6 +140,41 @@ export function getRate(currentPrice: number, pair: string, dir: boolean, time: 
 
   })
 }
+
+export function getOC(chainId: number, web3: any) {
+  return new Promise(async (resolve, reject) => {
+    const bp = getBOContract(chainId, web3)
+    await bp.methods
+      .oC()
+      .call(
+        { from: zeroAddress },
+        (err: any, data: any) => {
+          if (err) {
+            reject(err)
+          }
+          resolve(data)
+        }
+      )
+  })
+}
+
+export function getOP(chainId: number, web3: any) {
+  return new Promise(async (resolve, reject) => {
+    const bp = getBOContract(chainId, web3)
+    await bp.methods
+      .oP()
+      .call(
+        { from: zeroAddress },
+        (err: any, data: any) => {
+          if (err) {
+            reject(err)
+          }
+          resolve(data)
+        }
+      )
+  })
+}
+
 
 // biop rewards functions
 export function getBIOPContract(chainId: number, web3: any) {
