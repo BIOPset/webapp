@@ -15,6 +15,9 @@
   font-weight: bolder;
   margin-left: 20%;
   font-size: small;
+  font-family: var(--font-family-octarine-bold);
+  text-align: justify;
+  text-justify: inter-word;
 }
 
 .bio-blurb-right {
@@ -24,14 +27,20 @@
   font-weight: bolder;
   margin-right: 20%;
   font-size: small;
+  font-family: var(--font-family-octarine-bold);
+  text-align: justify;
+  text-justify: inter-word;
 }
 
 .bio-blurb-phone {
-  text-align: right;
+  font-size: small;
   margin: 10px;
   color: white;
   font-weight: bolder;
   margin-left: 20%;
+  font-family: var(--font-family-octarine-bold);
+  text-align: justify;
+  text-justify: none;
 }
 
 .bio-blurb-tablet {
@@ -41,6 +50,9 @@
   color: white;
   font-weight: bolder;
   margin-left: 25%;
+  font-family: var(--font-family-octarine-bold);
+  text-align: justify;
+  text-justify: none;
 }
 
 .bio-blurb-tablet-right {
@@ -50,6 +62,9 @@
   color: white;
   font-weight: bolder;
   margin-right: 25%;
+  font-family: var(--font-family-octarine-bold);
+  text-align: justify;
+  text-justify: none;
 }
 
 * {
