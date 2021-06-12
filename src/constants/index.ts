@@ -15,9 +15,10 @@ export const BUY_SELL = "Exchange";
 export const TRADE = "Trade";
 export const EXERCISE_EXPIRE = "Settle";
 export const GOVERNANCE = "Governance";
+export const FARM = "Farm";
 
 export const BIOP_ROUTE = [
-  '/buy',
+  '/farm',
   '/stake',
   '/trade',
   '/exercise',

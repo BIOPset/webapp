@@ -7,8 +7,6 @@ import { isMobile } from 'react-device-detect'
 import App from "./App";
 import { Provider } from 'react-redux'
 import store from './redux'
-// @ts-ignore
-import { BrowserRouter as Router } from 'react-router-dom'
 import ApplicationUpdater from './redux/application/updater'
 import UserUpdater from './redux/user/updater'
 import { globalStyle } from "./styles";
@@ -57,9 +55,7 @@ ReactDOM.render(
       <Provider store={store}>
         <Updaters />
         <GlobalStyle />
-        <Router>
           <App />
-        </Router>
       </Provider>
     </Web3ProviderNetwork>
   </Web3ReactProvider>,

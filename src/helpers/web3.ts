@@ -1,9 +1,287 @@
 
-import { BO_CONTRACT, PRICE_PROVIDER_CONTRACT, BIOP_CONTRACT, RATECALC_CONTRACT, DGOV_CONTRACT, V2BIOP_CONTRACT, ITCO_CONTRACT } from '../constants'
+import { UNICRYPTSTAKING_CONTRACT, YIELDFARMLP_CONTRACT, UNILPTOKEN_CONTRACT, COMMUNITYVAULT_CONTRACT, BO_CONTRACT, PRICE_PROVIDER_CONTRACT, BIOP_CONTRACT, RATECALC_CONTRACT, DGOV_CONTRACT, V2BIOP_CONTRACT, ITCO_CONTRACT } from '../constants'
 import { bigNumberStringToInt, greaterThan, subtract } from "./bignumber";
 
 
 const zeroAddress = "0x0000000000000000000000000000000000000000";
+
+//start of stuff related to unilp dex rewards
+export function loadUniCryptoContract(chainId: number, web3: any) {
+  const cv = new web3.eth.Contract(
+    UNICRYPTSTAKING_CONTRACT[chainId].abi,
+    UNICRYPTSTAKING_CONTRACT[chainId].address
+  )
+  return cv;
+}
+
+export function callUnicryptPendingRewards(address: string, chainId: number, web3: any) {
+  return new Promise(async (resolve, reject) => {
+    const bp = loadUniCryptoContract(chainId, web3)
+    await bp.methods
+      .pendingReward(address)
+      .call(
+        { from: zeroAddress },
+        (err: any, data: any) => {
+          if (err) {
+            reject(err)
+          }
+          resolve(data)
+        }
+      )
+  })
+}
+export function sendUniCryptDeposit(amount: any, address: string, chainId: number, web3: any, onComplete: any) {
+  return new Promise(async (resolve, reject) => {
+    const us = loadUniCryptoContract(chainId, web3);
+    // @ts-ignore
+    console.log(`depositing amount ${amount}`);
+    await us.methods
+      .deposit(amount)
+      .send(
+        { from: address },
+        (err: any, data: any) => {
+          if (err) {
+            reject(err)
+          }
+          resolve(data)
+        }
+      )
+      .on('confirmation', onComplete)
+      .on('error', onComplete)
+  })
+}
+export function sendUniCryptWithdraw(amount: any, address: string, chainId: number, web3: any, onComplete: any) {
+  return new Promise(async (resolve, reject) => {
+    const us = loadUniCryptoContract(chainId, web3);
+    // @ts-ignore
+    console.log(`depositing amount ${amount} `);
+    await us.methods
+      .withdraw(amount)
+      .send(
+        { from: address },
+        (err: any, data: any) => {
+          if (err) {
+            reject(err)
+          }
+          resolve(data)
+        }
+      )
+      .on('confirmation', onComplete)
+      .on('error', onComplete)
+  })
+}
+export function callUniCryptDepositedBalance(address: string, chainId: number, web3: any) {
+  return new Promise(async (resolve, reject) => {
+    const bp = loadUniCryptoContract(chainId, web3)
+    await bp.methods
+      .userInfo( address)
+      .call(
+        { from: zeroAddress },
+        (err: any, data: any) => {
+          if (err) {
+            reject(err)
+          }
+          resolve(data.amount);
+        }
+      )
+  })
+}
+export function getCommunityVaultContract(chainId: number, web3: any) {
+  const cv = new web3.eth.Contract(
+    COMMUNITYVAULT_CONTRACT[chainId].abi,
+    COMMUNITYVAULT_CONTRACT[chainId].address
+  )
+  return cv;
+}
+/* export function getUNILPStakingContract(chainId: number, web3: any) {
+  const us = new web3.eth.Contract(
+    UNILPSTAKING_CONTRACT[chainId].abi,
+    UNILPSTAKING_CONTRACT[chainId].address
+  )
+  return us;
+}
+export function sendUNILPStakingDeposit(tokenAddress: string, amount: any, address: string, chainId: number, web3: any, onComplete: any) {
+  return new Promise(async (resolve, reject) => {
+    const us = getUNILPStakingContract(chainId, web3);
+    // @ts-ignore
+    console.log(`depositing amount ${amount} from token ${tokenAddress}`);
+    await us.methods
+      .deposit(tokenAddress, amount)
+      .send(
+        { from: address },
+        (err: any, data: any) => {
+          if (err) {
+            reject(err)
+          }
+          resolve(data)
+        }
+      )
+      .on('confirmation', onComplete)
+      .on('error', onComplete)
+  })
+}
+
+export function callUNILPDepositedBalance(token: string, address: string, chainId: number, web3: any) {
+  return new Promise(async (resolve, reject) => {
+    const bp = getUNILPStakingContract(chainId, web3)
+    await bp.methods
+      .balanceOf(address, token)
+      .call(
+        { from: zeroAddress },
+        (err: any, data: any) => {
+          if (err) {
+            reject(err)
+          }
+          resolve(data)
+        }
+      )
+  })
+}
+export function sendUNILPStakingWithdraw(tokenAddress: string, amount: any, address: string, chainId: number, web3: any, onComplete: any) {
+  return new Promise(async (resolve, reject) => {
+    const us = getUNILPStakingContract(chainId, web3);
+
+  // @ts-ignore
+  console.log(`withdrawing amount ${amount}`);
+    await us.methods
+      .withdraw(tokenAddress, amount)
+      .send(
+        { from: address },
+        (err: any, data: any) => {
+          if (err) {
+            reject(err)
+          }
+          resolve(data)
+        }
+      )
+      .on('confirmation', onComplete)
+      .on('error', onComplete)
+  })
+} */
+export function getUNILPTokenContract(chainId: number, web3: any) {
+  const ulpt = new web3.eth.Contract(
+    UNILPTOKEN_CONTRACT[chainId].abi,
+    UNILPTOKEN_CONTRACT[chainId].address
+  )
+  return ulpt;
+}
+
+
+export function callUNILPTokenReserves(chainId: number, web3: any) {
+  return new Promise(async (resolve, reject) => {
+    const bp = getUNILPTokenContract(chainId, web3)
+    await bp.methods
+      .getReserves()
+      .call(
+        { from: zeroAddress },
+        (err: any, data: any) => {
+          if (err) {
+            reject(err)
+          }
+          resolve(data)
+        }
+      )
+  })
+}
+
+export function callUNILPTotalSupply(chainId: number, web3: any) {
+  return new Promise(async (resolve, reject) => {
+    const bp = getUNILPTokenContract(chainId, web3)
+    await bp.methods
+      .totalSupply()
+      .call(
+        { from: zeroAddress },
+        (err: any, data: any) => {
+          if (err) {
+            reject(err)
+          }
+          resolve(data)
+        }
+      )
+  })
+}
+export function sendUNILPApprove(amount: string, spender: string, address: string, chainId: number, web3: any, onComplete: any) {
+  return new Promise(async (resolve, reject) => {
+    const bp = getUNILPTokenContract(chainId, web3);
+    await bp.methods
+      .approve(spender, amount)
+      .send(
+        { from: address },
+        (err: any, data: any) => {
+          if (err) {
+            reject(err)
+          }
+          resolve(data)
+        }
+      )
+      .on('confirmation', onComplete)
+      .on('error', onComplete)
+  })
+}
+
+export function callUNILPTokenApproved(address: string, chainId: number, web3: any): Promise<string> {
+  return new Promise(async (resolve, reject) => {
+    const bp = getUNILPTokenContract(chainId, web3)
+    await bp.methods
+      .allowance(address, UNICRYPTSTAKING_CONTRACT[chainId].address)
+      .call(
+        { from: zeroAddress },
+        (err: any, data: any) => {
+          if (err) {
+            reject(`${err}`);
+          }
+
+          resolve(data)
+        }
+      )
+  })
+}
+export function callUNILPBalance(address: string, chainId: number, web3: any) {
+  return new Promise(async (resolve, reject) => {
+    const bp = getUNILPTokenContract(chainId, web3)
+    await bp.methods
+      .balanceOf(address)
+      .call(
+        { from: zeroAddress },
+        (err: any, data: any) => {
+          if (err) {
+            reject(err)
+          }
+          resolve(data)
+        }
+      )
+  })
+}
+export function getYieldFarmLPContract(chainId: number, web3: any) {
+  const yf = new web3.eth.Contract(
+    YIELDFARMLP_CONTRACT[chainId].abi,
+    YIELDFARMLP_CONTRACT[chainId].address
+  )
+  return yf;
+}
+
+export function sendHarvest(address: string, chainId: number, web3: any, onComplete: any) {
+  return new Promise(async (resolve, reject) => {
+    const bp = getYieldFarmLPContract(chainId, web3);
+    await bp.methods
+      .massHarvest()
+      .send(
+        { from: address },
+        (err: any, data: any) => {
+          if (err) {
+            reject(err)
+          }
+          resolve(data)
+        }
+      )
+      .on('confirmation', onComplete)
+      .on('error', onComplete)
+  })
+}
+
+//end of stuff related to unilp dex rewards
+
+
 
 // general functions
 export function blockTimestamp(blockNumber: string, web3: any) {

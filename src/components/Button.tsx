@@ -12,6 +12,7 @@ interface IButtonStyleProps {
   icon: any
   left: boolean,
   borderRadius: number,
+  width: string
 }
 
 interface IButtonProps extends IButtonStyleProps {
@@ -43,7 +44,7 @@ const SHoverLayer = styled.div`
 `
 
 const SButton = styled.button<IButtonStyleProps>`
-  width: 150px;
+  width: ${({ width }) => width};
   height: 40px;
   transition: ${transitions.button};
   position: relative;
@@ -56,7 +57,7 @@ const SButton = styled.button<IButtonStyleProps>`
     outline ? `1px solid rgb(${colors[color]})` : 'none'};
   color: ${({ outline, color }) =>
     outline ? `rgb(${colors[color]})` : `rgb(${colors.white})`};
-  box-shadow: ${({ outline }) => (outline ? 'none' : `${shadows.soft}`)};
+  box-shadow: ${({ outline }) => (outline ? 'none' : `${shadows.big}`)};
   border-radius: ${({ borderRadius }) => `${borderRadius}px`} ;
   font-size: ${fonts.size.medium};
   font-weight: ${fonts.weight.semibold};
@@ -128,6 +129,7 @@ Button.defaultProps = {
   icon: null,
   left: false,
   borderRadius: 16,
+  width: "150px"
 }
 
 export default Button

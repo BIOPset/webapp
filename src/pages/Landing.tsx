@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Column from 'src/components/Column';
+import Footer from 'src/components/Footer';
 import ConnectButton from "../components/ConnectButton";
 import { colors } from 'src/styles';
 // @ts-ignore
@@ -41,8 +41,15 @@ const SReasons = styled(Column)`
   justity-content: center;
 `;
 
-function Landing() {
+interface ILandingProps {
+  onConnect: () => void
+}
+
+
+function Landing(props: ILandingProps) {
   const [locale, setLocale] = useState<string>(DEFAULT_LANG);
+
+  const { onConnect } = props;
 
   useEffect(() => {
     const locale1 = localStorage.getItem('locale');
@@ -50,6 +57,7 @@ function Landing() {
   }, [])
 
   return (
+    <>
     <SLanding >
       <SReasons >
         <SBrand>
@@ -61,14 +69,15 @@ function Landing() {
             i18n[locale].LANDING2
           }
         </h5>
-        <Link to="/buy" style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+        <div  style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
           <ConnectButton
             primary={true}
             locale={locale}
             onClick={() => {
+              onConnect();
             }}
           />
-        </Link>
+        </div>
         <ConnectButton
           primary={false}
           locale={locale}
@@ -78,6 +87,8 @@ function Landing() {
         />
       </SReasons>
     </SLanding>
+          <Footer locale={locale}/>
+    </>
 
   )
 }

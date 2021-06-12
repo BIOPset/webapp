@@ -3,8 +3,8 @@
 ## Deploy
 0. set Show Actions in App to false
 1. ```yarn build```
+2. if deploying to a sub directory (like biopset.com/app) then after building all instances of `="/` must be replaced with `="./` in the index.html within the build folder. The url for importing the Octarine font must also be updated to in include a `.` before the first `/` when it is imported with `url(...` in the index.html in the build folder.
 3. ```yarn deploy```
-4. update config on github options
 
 ### live contracts addresses
 Token 0xC3771668ac4d9C727f54dBDe11ed94acAdD5fF86

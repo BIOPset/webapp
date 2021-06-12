@@ -1,5 +1,5 @@
-import backgroundRight from "./assets/background-right.png";
 import backgroundDark from "./assets/background-dark.png";
+import backgroundLight from "./assets/background-light.png";
 const darkMode = localStorage.getItem('darkMode');
 const isDarkMode = darkMode === 'true' ? true : false;
 
@@ -9,8 +9,10 @@ export const colors = {
   dark: '12, 12, 13',
   grey: '169, 169, 188',
   brandGrey: '112,112,112',
-  darkGrey: isDarkMode ? '113, 119, 138' : '212, 212, 212',
-  lightGrey: isDarkMode ? '212, 212, 212' : '113, 119, 138',
+  darkerGrey: isDarkMode ? '57, 57, 80' : '212, 212, 212',
+  darkGrey: isDarkMode ? '85, 81, 108' : '212, 212, 212',
+  mediumGrey: isDarkMode ? '99, 98, 125' : '255, 255, 255, 0.1',
+  lightGrey: isDarkMode ? '212, 212, 212' : '85, 81, 108',
   blue: '0, 103, 206',
   lightBlue: '64, 153, 255',
   fadedBlue: '0,89,163',
@@ -93,7 +95,7 @@ export const fonts = {
     extrabold: 800
   },
   family: {
-    OpenSans: '"Open Sans", sans-serif'
+    Poppins: '"Poppins", sans-serif'
   }
 }
 
@@ -139,10 +141,10 @@ export const responsive = {
 }
 
 export const globalStyle = `
-  @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,500,600,700,800');
+  @import url("https://fonts.googleapis.com/css?family=Poppins:400,700,300,500,600");
 
   html {
-    background: url(${isDarkMode ? backgroundDark : backgroundRight}) no-repeat center center fixed;
+    background: url(${isDarkMode ? backgroundDark : backgroundLight}) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -165,7 +167,7 @@ export const globalStyle = `
 }
 
   body {
-    font-family: ${fonts.family.OpenSans};
+    font-family: ${fonts.family.Poppins};
     font-style: normal;
     font-stretch: normal;
     font-weight: ${fonts.weight.normal};

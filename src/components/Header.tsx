@@ -1,12 +1,9 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import * as PropTypes from 'prop-types'
-import Blockie from './Blockie'
 import Banner from './Banner'
-import { ellipseAddress } from '../helpers/utilities'
-import { transitions, colors } from '../styles'
+import {  colors } from '../styles'
 import Nav from './Nav'
-import { useActiveWeb3React } from '../hooks'
 
 const SHeader = styled.div`
   height: 70px;
@@ -18,27 +15,6 @@ const SHeader = styled.div`
   box-shadow: 0px 3px 6px #00000029;
 `
 
-const SActiveAccount = styled.div`
-  background-color: ${colors.connectButtonColor};
-  width: 240px;
-  height: 50px;
-  border-radius: 23px
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 500;
-  margin-left: 30px;
-  margin-right: 30px;
-  @media (max-width: 968px) {
-    width: 150px;
-    height: 40px;
-    border-radius: 20px
-    display: flex;
-    font-weight: 400;
-    padding:5px;
-    margin-right:50px;
-  }
-`
 
 const SActiveChain = styled.div`
   display: flex;
@@ -69,51 +45,18 @@ const SActiveChain = styled.div`
     }
 `
 
-const SBlockie = styled(Blockie)`
-  margin-right: 10px;
-  @media (max-width: 968px) {
-    margin-right: 10px;
-  }
-`
-
-interface IHeaderStyle {
-  account: string | null | undefined
-}
-
-const SDisconnect = styled.div<IHeaderStyle>`
-  color: ${colors.text6}
-  transition: ${transitions.button};
-  font-size: ${({ account }) => account ? '12px' : '15px'};
-  font-weight: ${({ account }) => account ? 500 : 900};
-  font-family: monospace;
-  right: 0;
-  top: 20px;
-  opacity: 0.7;
-  cursor: pointer;
-
-  pointer-events: auto;
-
-  &:hover {
-    transform: translateY(-1px);
-    opacity: 0.5;
-  }
-`
 
 
 interface IHeaderProps {
   killSession: () => void
   onConnect: () => void
+  curPage: string
+  setCurPage: any
   locale: string
 }
 
 const Header = (props: IHeaderProps) => {
-  const { killSession, onConnect, locale } = props
-
-  const { account } = useActiveWeb3React()
-
-
-  const width = window.innerWidth;
-  const height = window.innerHeight;
+  const { killSession, onConnect, locale, curPage, setCurPage } = props
 
   return (
     <>
@@ -121,28 +64,8 @@ const Header = (props: IHeaderProps) => {
         <SActiveChain>
           <Banner />
         </SActiveChain>
-        <Nav locale={locale} />
-        {
-          account ?
-            <SActiveAccount>
-              <SBlockie address={account} />
-              <SDisconnect
-                account={account}
-                onClick={() => killSession()}
-              >
-                {width > height ? ellipseAddress(account) : ""}
-              </SDisconnect>
-            </SActiveAccount>
-            :
-            <SActiveAccount>
-              <SDisconnect
-                account={account}
-                onClick={() => onConnect()}
-              >
-                Connect Wallet
-              </SDisconnect>
-            </SActiveAccount>
-        }
+        <Nav locale={locale} killSession={killSession} onConnect={onConnect} curPage={curPage} setCurPage={setCurPage} />
+       
       </SHeader>
     </>
   )

@@ -5,7 +5,7 @@ import { RiTwitterLine, RiTelegramLine, RiDiscordLine } from 'react-icons/ri';
 import { colors } from "../styles";
 
 const SFooter = styled.div`
-  margin-top: 30px;
+  margin-top: 30%;
   height: 100px;
   width: 100%;
   display: flex;
@@ -34,12 +34,12 @@ const Footer = (props: any) => (
     {...props}
   >
     <SLinks>
-      <SLink href="https://docs.biopset.com/" target="_"><BiBookAlt /></SLink>
-      <SLink href="https://twitter.com/biopset" target="_"><RiTwitterLine /></SLink>
-      <SLink href="https://discord.gg/4SRYBNdE3r" target="_"><RiDiscordLine /></SLink>
-      <SLink href="https://t.me/BIOPset" target="_"><RiTelegramLine /></SLink>
+      <SLink href="https://docs.biopset.com/" target="_"><BiBookAlt style={{color: "white"}}/></SLink>
+      <SLink href="https://twitter.com/biopset" target="_"><RiTwitterLine style={{color: "white"}}/></SLink>
+      <SLink href="https://discord.gg/4SRYBNdE3r" target="_"><RiDiscordLine style={{color: "white"}}/></SLink>
+      <SLink href="https://t.me/BIOPset" target="_"><RiTelegramLine style={{color: "white"}}/></SLink>
     </SLinks>
-    <p style={{ color: `rgb(${colors.black})` }}>Settlement DAO © 2021 </p>
+    <p style={{ color:  "white" }}>Settlement DAO © 2021 </p>
   </SFooter>
 )
 

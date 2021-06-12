@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Route, Redirect, Switch } from 'react-router-dom'
 import Web3ReactManager from './components/Web3ReactManager'
 import Modal from "./components/Modal";
 import Header from "./components/Header";
@@ -8,18 +7,18 @@ import Loader from "./components/Loader";
 import ModalResult from "./components/ModalResult";
 import { IAssetData } from "./helpers/types";
 import {
-  DEFAULT_LANG
+  DEFAULT_LANG, FARM
 } from "./constants";
 
 import { useWalletModalToggle } from './redux/application/hooks'
 
 // Pages
-import Rewards from './pages/Rewards';
+/* import Rewards from './pages/Rewards';
 import Stake from './pages/Stake';
 import Trade from './pages/Trade';
-import Exercise from './pages/Exercise';
+import Exercise from './pages/Exercise'; */
 import Landing from './pages/Landing';
-import ITCO from './pages/ITCO';
+import UNILP from './pages/UNILP';
 import WalletModal from './components/WalletModal';
 
 const SLayout = styled.div`
@@ -66,6 +65,9 @@ function App() {
   const [assets, setAssets] = useState<IAssetData[]>([]);
   const [result, setResult] = useState<any | null>();
 
+
+  const [curPage, setCurPage] = useState<string>("");
+
   const toggleModal = () => {
     setShowModal(!showModal)
   }
@@ -87,17 +89,17 @@ function App() {
           locale={locale}
           killSession={resetApp}
           onConnect={toggleWalletModal}
+          curPage={curPage}
+          setCurPage={setCurPage}
         />
 
-        <Switch>
-          <Route exact path="/home" component={Landing} />
-          <Route exact path="/buy" component={ITCO} />
-          <Route exact path="/trade" component={Trade} />
-          <Route exact path="/exercise" component={Exercise} />
-          <Route exact path="/stake" component={Stake} />
-          <Route exact path="/governance" component={Rewards} />
-          <Redirect to={{ ...location, pathname: '/home' }} />
-        </Switch>
+        {curPage == FARM ?
+          <UNILP/>
+          :
+            <Landing onConnect={toggleWalletModal}/>
+        }
+
+       
 
         <Modal show={showModal} toggleModal={toggleModal}>
           {pendingRequest ? (
@@ -122,6 +124,8 @@ function App() {
           )}
         </Modal>
         <WalletModal />
+
+
       </SLayout>
     </Web3ReactManager>
   );
