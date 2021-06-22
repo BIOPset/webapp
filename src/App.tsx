@@ -7,18 +7,16 @@ import Loader from "./components/Loader";
 import ModalResult from "./components/ModalResult";
 import { IAssetData } from "./helpers/types";
 import {
-  DEFAULT_LANG, FARM
+  DEFAULT_LANG, FARM, TRADE, SETTLE
 } from "./constants";
 
 import { useWalletModalToggle } from './redux/application/hooks'
 
 // Pages
-/* import Rewards from './pages/Rewards';
+// import Rewards from './pages/Rewards';
 import Stake from './pages/Stake';
+import Exercise from './pages/Exercise'; 
 import Trade from './pages/Trade';
-import Exercise from './pages/Exercise'; */
-import Landing from './pages/Landing';
-import UNILP from './pages/UNILP';
 import WalletModal from './components/WalletModal';
 
 const SLayout = styled.div`
@@ -82,6 +80,20 @@ function App() {
     setLocale(locale1 !== null ? locale : DEFAULT_LANG);
   }, [])
 
+  const router = (curPage: string) => {
+    switch(curPage) {
+      case FARM:
+        return <Stake  onConnect={toggleWalletModal}/>;
+      case TRADE:
+        return <Trade onConnect={toggleWalletModal}/>;
+      case SETTLE:
+        return <Exercise onConnect={toggleWalletModal}/>;
+      default:
+        setCurPage(TRADE);
+        return <></>;
+    }
+  }
+
   return (
     <Web3ReactManager>
       <SLayout>
@@ -93,11 +105,7 @@ function App() {
           setCurPage={setCurPage}
         />
 
-        {curPage == FARM ?
-          <UNILP/>
-          :
-            <Landing onConnect={toggleWalletModal}/>
-        }
+       {router(curPage)}
 
        
 

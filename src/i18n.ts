@@ -1,4 +1,12 @@
-const i18n = {
+import { DEFAULT_LANG } from "./constants";
+
+export function getLocale() {
+
+    const locale1 = localStorage.getItem('locale');
+    return locale1 !== null ? locale1 : DEFAULT_LANG;
+}
+
+export const i18n = {
     "EN🇨🇦": {
         "BUY": "Buy",
         "SELL": "Sell",
@@ -17,7 +25,14 @@ const i18n = {
         "STAKED": "Staked",
         "STAKE": "Stake",
         "UNSTAKE": "Unstake",
-        "APPROVE": "Approve"
+        "APPROVE": "Approve",
+        "CONNECTWALLET": "Connect Wallet",
+        "NEWTOETHEREUM": "New To Ethereum?",
+        "LEARNABOUTWALLETS":"Learn more about wallets",
+        "INITIALIZING": "Initializing...",
+        "BACK": "Back",
+        "CALL": "Call",
+        "PUT": "Put"
     },
     "KO🇰🇷": {
         "BUY": "구입",
@@ -37,7 +52,14 @@ const i18n = {
         "STAKED": "스테이크",
         "STAKE": "말뚝",
         "UNSTAKE": "지분을 빼다",
-        "APPROVE": "승인하다"
+        "APPROVE": "승인하다",
+        "CONNECTWALLET": "지갑 연결",
+        "NEWTOETHEREUM": "Ethereum을 처음 사용하십니까?",
+        "LEARNABOUTWALLETS":"지갑에 대해 더 알아보기",
+        "INITIALIZING": "초기화 중 ...",
+        "BACK": "뒤",
+        "CALL": "요구",
+        "PUT": "놓다"
 
     }
 }

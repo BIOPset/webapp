@@ -24,7 +24,11 @@ const SHelper = styled.div`
     font-size: x-small;
 `
 
-const Exercise = () => {
+interface ISettleProps {
+  onConnect: () => void
+}
+
+const Exercise = (props: ISettleProps) => {
 
   const { account, chainId } = useActiveWeb3React();
 

@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { Chart } from "react-google-charts";
 import { greaterThanOrEqual, divide } from "../helpers/bignumber";
 import { DEFAULT_LANG } from 'src/constants';
-import i18n from "../i18n";
+import { i18n } from "../i18n";
 
 const SPriceChart = styled.div`
   background: #F6F6F6;

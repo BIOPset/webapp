@@ -1,7 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components'
+import { RiWallet3Line } from 'react-icons/ri';
 import {colors} from "../styles";
-import i18n from "../i18n";
 
 const SConnectButtonContainer = styled.div`
   position: relative;
@@ -74,6 +74,10 @@ const SConnectButton = styled.button<IConnectButtonStyleProps>`
   cursor: ${({ disabled }) => (disabled ? 'auto' : 'pointer')};
   will-change: transform;
 
+  display: flex;
+  flex-direction: row;
+
+
   &:disabled {
     opacity: 0.7;
     box-shadow: 0 4px 6px 0 rgba(50, 50, 93, 0.11),
@@ -123,7 +127,8 @@ const ConnectButton = (props: IConnectButtonProps) => (
       type="button"
       {...props}
     >
-      {props.primary ? i18n[props.locale].LAUNCH : i18n[props.locale].READMORE }
+      
+      <RiWallet3Line size={"100%"}/>
     </SConnectButton>
   </SConnectButtonContainer>
 )

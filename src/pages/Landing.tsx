@@ -6,7 +6,7 @@ import ConnectButton from "../components/ConnectButton";
 import { colors } from 'src/styles';
 // @ts-ignore
 import logo from "../assets/logo.png";
-import i18n from "../i18n";
+import { i18n } from "../i18n";
 import { DEFAULT_LANG } from "src/constants";
 
 const SBrand = styled.div`

@@ -9,12 +9,13 @@ import MetamaskIcon from '../../assets/images/metamask.png'
 import Close from '../../assets/images/x.svg'
 import { fortmatic, injected, portis } from '../../connectors'
 import { OVERLAY_READY } from '../../connectors/Fortmatic'
-import { SUPPORTED_WALLETS } from '../../constants'
+import { SUPPORTED_WALLETS, DEFAULT_LANG } from '../../constants'
 import usePrevious from '../../hooks/usePrevious'
 import { ApplicationModal } from '../../redux/application/actions'
 import { useModalOpen, useWalletModalToggle } from '../../redux/application/hooks'
 import { ExternalLink } from '../../theme/components'
 import { colors } from '../../styles'
+import {i18n, getLocale} from "../../i18n";
 
 import Modal from '../CustomModal'
 import Option from './Option'
@@ -88,6 +89,7 @@ const OptionGrid = styled.div`
 `
 
 const HoverText = styled.div`
+  color: rgb(${colors.black});
   :hover {
     cursor: pointer;
   }
@@ -115,6 +117,14 @@ export default function WalletModal({
   const toggleWalletModal = useWalletModalToggle()
 
   const previousAccount = usePrevious(account)
+
+  const [locale, setLocale] = useState<string>(DEFAULT_LANG);
+
+  //load language on startup
+  useEffect(() => {
+    const locale1 = getLocale();
+    setLocale(locale1);
+  }, [])
 
   // close on connection, when logged out before
   useEffect(() => {
@@ -269,7 +279,7 @@ export default function WalletModal({
     if (error) {
       return (
         <UpperSection>
-          <CloseIcon onClick={toggleWalletModal}>
+          <CloseIcon onClick={toggleWalletModal} >
             <img src={Close} alt={''} />
           </CloseIcon>
           <HeaderRow>{error instanceof UnsupportedChainIdError ? 'Wrong Network' : 'Error connecting'}</HeaderRow>
@@ -296,12 +306,12 @@ export default function WalletModal({
                 setWalletView(WALLET_VIEWS.ACCOUNT)
               }}
             >
-              Back
+              {i18n[locale].BACK}
             </HoverText>
           </HeaderRow>
         ) : (
           <HeaderRow>
-            <HoverText>Connect to a wallet</HoverText>
+            <HoverText>{i18n[locale].CONNECTWALLET}</HoverText>
           </HeaderRow>
         )}
         <ContentWrapper>
@@ -317,8 +327,9 @@ export default function WalletModal({
           )}
           {walletView !== WALLET_VIEWS.PENDING && (
             <Blurb>
-              <span>New to Ethereum? &nbsp;</span>{' '}
-              <ExternalLink href="https://ethereum.org/wallets/">Learn more about wallets</ExternalLink>
+              <span style={{color: `rgb(${colors.black})`}} >
+              {i18n[locale].NEWTOETHEREUM}  &nbsp;</span>{' '}
+              <ExternalLink href="https://ethereum.org/wallets/">{i18n[locale].LEARNABOUTWALLETS}</ExternalLink>
             </Blurb>
           )}
         </ContentWrapper>

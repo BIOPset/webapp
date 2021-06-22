@@ -87,7 +87,7 @@ export default function PendingView({
         <LoadingWrapper>
           {error ? (
             <ErrorGroup>
-              <div>Error connecting.</div>
+              <div style={{color: `rgb(${colors.black})`}}>Error connecting.</div>
               <ErrorButton
                 onClick={() => {
                   setPendingError(false)
@@ -100,7 +100,7 @@ export default function PendingView({
           ) : (
             <>
               <StyledLoader />
-              Initializing...
+             <span style={{color: `rgb(${colors.black})`}}>Initializing...</span> 
             </>
           )}
         </LoadingWrapper>

@@ -348,6 +348,10 @@ export function callCurrentRoundID(chainId: number, web3: any, oracle: any) {
           if (err) {
             reject(err)
           }
+          if (!data) {
+            reject("No Data Received");
+          }
+          console.log(`${data} Oracle Data`);
           resolve(data.roundId);
         }
       )

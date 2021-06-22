@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from 'styled-components'
 import Button from "./Button";
 import { colors } from "../styles";
-import i18n from "../i18n";
+import { i18n } from "../i18n";
 import { DEFAULT_LANG } from "../constants";
 
 

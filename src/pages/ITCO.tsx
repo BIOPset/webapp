@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import i18n from "../i18n";
+import { i18n } from "../i18n";
 import { getETHBalance, callITCOAmountSold, buyFromITCO, callBIOPBalance } from "../helpers/web3";
 import ReactTooltip from 'react-tooltip';
 import { DEFAULT_LANG, enabledPricePairs } from "../constants";

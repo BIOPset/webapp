@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import i18n from "../i18n";
+import { i18n, getLocale } from "../i18n";
 import { callUNILPTokenReserves, callUnicryptPendingRewards, sendUNILPApprove, callUNILPTokenApproved, callUNILPBalance, callUniCryptDepositedBalance, callUNILPTotalSupply, sendUniCryptDeposit, sendUniCryptWithdraw } from "../helpers/web3";
 import { UNICRYPTSTAKING_CONTRACT } from "../constants";
 import { currentEthAndBiopPriceInUSD } from "../helpers/coingecko";
 import ReactTooltip from 'react-tooltip';
-import { DEFAULT_LANG, enabledPricePairs } from "../constants";
+import {  enabledPricePairs } from "../constants";
 import Column from 'src/components/Column';
-import Footer from 'src/components/Footer';
 import Button from 'src/components/Button';
 import Loading from 'src/components/Loading';
 import { colors, fonts } from 'src/styles';
@@ -102,14 +101,6 @@ const STVL = styled.div`
   box-shadow: 2px 2px 8px;
 `
 
-const SSelect = styled.select`
-    border-radius: 8px;
-    height: 44px;
-    width: 100%;
-    user-select: none;
-    flex: 1;
-`;
-
 const SInterface = styled.div`
 
 background-color: rgb(${isDarkMode ? colors.darkGrey : "255, 255, 255, 0.05"});
@@ -132,17 +123,21 @@ const SButtonContainer = styled.div`
   padding:  10px;    
 `
 
-const Times = {
-  "1 Round": 1,
-  "3 Rounds": 3,/*
-    "15 MIN": 60*15, */
-};
 
-const UNILP = () => {
+
+interface IUNILPProps {
+  onConnect: () => void
+}
+
+const UNILP = (props:IUNILPProps) => {
+
+  const { onConnect } = props;
+
   console.log('height         ', height);
 
   const vertical = width < height;
   const { account, chainId } = useActiveWeb3React();
+
 
   const [address, setAddress] = useState<string>("")
   const [networkId, setNetworkId] = useState<number>(42);
@@ -165,8 +160,6 @@ const UNILP = () => {
   const [lpTokenApproved, setLPtokenApproved] = useState<number>(0);
   // @ts-ignore
   const [toDeposit, setToDeposit] = useState<string>(0);
-  // @ts-ignore
-  const [round, setRound] = useState<number>(1);
   // @ts-ignore
   const [tvl, setTVL] = useState<string>("0.00");
   // @ts-ignore
@@ -192,7 +185,8 @@ const UNILP = () => {
   const [pair, setPair] = useState<any>(enabledPricePairs[0]);
 
 
-  const locale = localStorage.getItem('locale') ? localStorage.getItem('locale') : DEFAULT_LANG;
+
+  const locale = getLocale();
 
   useEffect(() => {
     if (!!account) {
@@ -211,7 +205,7 @@ const UNILP = () => {
     if (!!address && !!web3) {
       getBalance();
       getTVL();
-    }
+    } 
   }, [address, web3]);
 
   // @ts-ignore
@@ -247,7 +241,7 @@ const UNILP = () => {
     
     console.log(`uni TVL is ${add(multiply(BIOPPrice, totalBIOPReserves), multiply(ETHPrice, totalETHReserves))}`);
     const resultTVL = multiply(divide(totalStaked, totalSupply), add(multiply(BIOPPrice, totalBIOPReserves), multiply(ETHPrice, totalETHReserves)));
-    setTVL(formatFixedDecimals(resultTVL, 2));
+    setTVL(formatFixedDecimals(resultTVL, 0));
     const resultAPY = multiply(divide(multiply(multiply(multiply(450000, 2), divide(365,37)),BIOPPrice), resultTVL), 100);
     console.log(`apy is ${resultAPY}`);
     setAPY(resultAPY);
@@ -356,22 +350,7 @@ const UNILP = () => {
     }
   }
 
-  // @ts-ignore
-  const renderRoundsSelect = () => {
-    return (
-      <SSelect onChange={async (e: any) => {
-        // @ts-ignore
-        await this.setState({ rounds: Times[e.target.value] });
-      }}>
-        {Object.keys(Times).map((key: any, i: number) => {
-          return (<option
-            key={i}
-            value={key}>
-            {key}</option>)
-        })}
-      </SSelect>
-    )
-  };
+
 
   const renderInput = () => {
     console.log(`VERTICAL = ${vertical}. ${width} ${height}`);
@@ -389,7 +368,7 @@ const UNILP = () => {
                 </div>
               }
 
-              <p style={{ color: `rgb(${isDarkMode ? colors.black : colors.white})`, fontSize: "small" }}>BIOP-ETH UNI.V2-LP</p>
+              <p style={{ color: `rgb(${isDarkMode ? colors.black : colors.white})`, fontSize: "small" }}>FARM BIOP</p>
               {vertical ?
                 <></>
                 : <div style={{ width: "60px", }}></div>
@@ -457,6 +436,8 @@ const UNILP = () => {
                   color={"mediumGrey"}
                   width={"100%"}
                   onClick={async () => {
+
+
                     setLoading(true);
                     if (needApproval) {
                       await handleApprove();
@@ -585,19 +566,20 @@ const UNILP = () => {
        
         <div style={{padding: "30px"}}></div>
         {
-          pendingRequest || !web3 || !address ?
+          !web3 || !address ?
+            <div onClick={()=>onConnect()}><Loading /></div>
+          :
+          (
+          pendingRequest  ?
             <Loading />
             :
             <SInner>
               <SInterface>
                 {renderInput()}
               </SInterface>
-            </SInner>
+            </SInner>)
         }
       </SBet >
-      <Footer
-        locale={locale}
-      />
     </>
   )
 }

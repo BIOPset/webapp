@@ -13,7 +13,7 @@ export const colors = {
   darkGrey: isDarkMode ? '85, 81, 108' : '212, 212, 212',
   mediumGrey: isDarkMode ? '99, 98, 125' : '255, 255, 255, 0.1',
   lightGrey: isDarkMode ? '212, 212, 212' : '85, 81, 108',
-  blue: '0, 103, 206',
+  blue: '18,102,206',
   lightBlue: '64, 153, 255',
   fadedBlue: '0,89,163',
   yellow: '250, 188, 45',
@@ -26,7 +26,7 @@ export const colors = {
   navBackground: '#E9E9E9',
   navFontColor: '#A7A7A7',
   navActiveFontColor: '#707070',
-  connectButtonColor: '#0067CE',
+  connectButtonColor: 'orange',
   purple: '110, 107, 233',
   // text
   text1: isDarkMode ? '#FFFFFF' : '#000000',

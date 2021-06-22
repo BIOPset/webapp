@@ -1,4 +1,4 @@
-import * as React from 'react'
+import  React, { useEffect }  from 'react'
 import styled from 'styled-components'
 import * as PropTypes from 'prop-types'
 import DarkModeToggle from './DarkModeToggle';
@@ -7,11 +7,16 @@ import { transitions, colors } from "../styles";
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { ellipseAddress } from '../helpers/utilities'
 import {
-  FARM
+  DEFAULT_LANG,
+  FARM,
+  TRADE,
+  SETTLE
 } from "../constants";
 import Button from './Button';
+import ConnectButton from './ConnectButton';
 import { useActiveWeb3React } from '../hooks'
 import Blockie from './Blockie'
+import { getLocale } from "../i18n";
 
 const SNav = styled.div`
   width: 100%;
@@ -55,14 +60,13 @@ const SNavLink = styled.div`
 
 
 const SActiveAccount = styled.div`
-  background-color: ${colors.connectButtonColor};
+  background-color: rgb(${colors.connectButtonColor});
   width: 240px;
   height: 50px;
   border-radius: 23px
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 500;
   margin-left: 30px;
   margin-right: 30px;
   @media (max-width: 968px) {
@@ -115,6 +119,14 @@ interface INavProps {
 
 const Nav = (props: INavProps) => {
   const [showPanel, setShowPanel] = React.useState(false);
+  const [locale, setLocale] = React.useState<string>(DEFAULT_LANG);
+
+
+  useEffect(() => {
+    const locale1 = getLocale();
+    setLocale(locale1);
+
+  }, [])
 
 
   function navLink(page: string, currentPage: string, index: number, length: number) {
@@ -141,7 +153,9 @@ const Nav = (props: INavProps) => {
 
 
   const pages = [
-    FARM
+    TRADE,
+    FARM,
+    SETTLE
   ]
   if (width > height) {
     return (
@@ -163,14 +177,11 @@ const Nav = (props: INavProps) => {
               </SDisconnect>
             </SActiveAccount>
             :
-            <SActiveAccount>
-              <SDisconnect
-                account={account}
+              <ConnectButton
+                primary={true}
+                locale={locale}
                 onClick={() => onConnect()}
-              >
-                Connect Wallet
-              </SDisconnect>
-            </SActiveAccount>
+              />
         }
       </SNav>
     )
